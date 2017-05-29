@@ -3,6 +3,8 @@ package com.seasonfif.swiftmodule;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -17,9 +19,12 @@ import java.util.Map;
 
 public class SwiftModule {
 
-  private final static Map<Method, ServiceMethod> serviceMethodCache = new LinkedHashMap<>();
+  private final static Map<Method, IntentMethod> sIntentMethodCache = new LinkedHashMap<>();
 
   public static <T> T createRouterService(final Context context, Class<T> service){
+
+    Field[] declaredFields = service.getDeclaredFields();
+    Field[] fields = service.getFields();
 
     return (T) Proxy.newProxyInstance(service.getClassLoader(), new Class<?>[] { service },
         new InvocationHandler() {
@@ -29,7 +34,7 @@ public class SwiftModule {
           return method.invoke(this, args);
         }
 
-        ServiceMethod intentMethod = loadServiceMethod(method, args);
+        IntentMethod intentMethod = loadIntentMethod(method);
         Intent intent = intentMethod.adapt(context, intentMethod, args);
         Class returnType = method.getReturnType();
         if (returnType == void.class){
@@ -47,13 +52,13 @@ public class SwiftModule {
 
   }
 
-  private static ServiceMethod loadServiceMethod(Method method, Object[] args){
-    ServiceMethod result;
-    synchronized (serviceMethodCache){
-      result = serviceMethodCache.get(method);
+  private static IntentMethod loadIntentMethod(Method method){
+    IntentMethod result;
+    synchronized (sIntentMethodCache){
+      result = sIntentMethodCache.get(method);
       if (result == null){
-        result = new ServiceMethod.Builder(method, args).build();
-        serviceMethodCache.put(method, result);
+        result = new IntentMethod.Builder(method).build();
+        sIntentMethodCache.put(method, result);
       }
     }
     return result;

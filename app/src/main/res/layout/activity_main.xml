@@ -20,7 +20,7 @@
     android:textColor="#ffffff"
     android:text="main" />
   <TextView
-    android:id="@+id/tv1"
+    android:id="@+id/intent"
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:layout_marginTop="10dp"
@@ -28,4 +28,13 @@
     android:gravity="center"
     android:textColor="#ffffff"
     android:text="other" />
+  <TextView
+      android:id="@+id/scheme"
+      android:layout_width="match_parent"
+      android:layout_height="50dp"
+      android:layout_marginTop="10dp"
+      android:background="@color/colorAccent"
+      android:gravity="center"
+      android:textColor="#ffffff"
+      android:text="scheme" />
 </LinearLayout>

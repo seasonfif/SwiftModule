@@ -5,6 +5,7 @@ import com.seasonfif.modulea.ModuleAActivity;
 import com.seasonfif.swiftmodule.annotation.Flags;
 import com.seasonfif.swiftmodule.annotation.Key;
 import com.seasonfif.swiftmodule.annotation.RequestCode;
+import com.seasonfif.swiftmodule.annotation.Scheme;
 import com.seasonfif.swiftmodule.annotation.TargetClass;
 
 /**
@@ -15,15 +16,24 @@ import com.seasonfif.swiftmodule.annotation.TargetClass;
 
 public interface ActivityServices {
 
-  @TargetClass(ModuleAActivity.class)
-  @RequestCode(100)
-  @Flags(Intent.FLAG_ACTIVITY_NEW_TASK)
-  void goToModuleAActivity(@Key("name") String name, @Key("id")int id);
+  String NAME = "name";
+  String ID = "id";
 
   @TargetClass(ModuleAActivity.class)
   @RequestCode(100)
   @Flags(Intent.FLAG_ACTIVITY_NEW_TASK)
-  void goToModuleAActivity(@Key("name") String name);
+  void goToModuleAActivity(@Key(NAME) String name, @Key(ID)int id);
+
+  @TargetClass(ModuleAActivity.class)
+  @RequestCode(100)
+  @Flags(Intent.FLAG_ACTIVITY_NEW_TASK)
+  Intent goToModuleOther(@Key(NAME) String name, @Key(ID)int id);
+
+  @Scheme("modulea://activity")
+  @RequestCode(100)
+  @Flags(Intent.FLAG_ACTIVITY_NEW_TASK)
+  void goToModuleOtherByScheme(@Key(NAME) String name, @Key(ID)int id);
+
 
   void goToModuleBActivity();
 }

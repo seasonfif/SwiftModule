@@ -1,5 +1,6 @@
 package com.seasonfif.swiftmoduledemo;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -26,9 +27,18 @@ public class MainActivity extends AppCompatActivity {
       }
     });
 
-    findViewById(R.id.tv1).setOnClickListener(new View.OnClickListener() {
+    findViewById(R.id.intent).setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-        SwiftModule.createRouterService(MainActivity.this, ActivityServices.class).goToModuleAActivity("seasonfif");
+        Intent intent = SwiftModule.createRouterService(MainActivity.this, ActivityServices.class).goToModuleOther("seasonfif", 11);
+        if (intent == null){
+
+        }
+      }
+    });
+
+    findViewById(R.id.scheme).setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        SwiftModule.createRouterService(MainActivity.this, ActivityServices.class).goToModuleOtherByScheme("seasonfif", 12);
       }
     });
 
