@@ -1,6 +1,8 @@
 package com.seasonfif.swiftmoduledemo;
 
 import android.content.Intent;
+
+import com.seasonfif.annotation.Through;
 import com.seasonfif.modulea.ModuleAActivity;
 import com.seasonfif.swiftmodule.annotation.Flags;
 import com.seasonfif.swiftmodule.annotation.Key;
@@ -13,10 +15,11 @@ import com.seasonfif.swiftmodule.annotation.TargetClass;
  * 作者：zhangqiang <br>
  * 描述：
  */
-
 public interface ActivityServices {
 
+  @Through
   String NAME = "name";
+  @Through
   String ID = "id";
 
   @TargetClass(ModuleAActivity.class)

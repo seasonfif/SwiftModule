@@ -1,1 +1,1 @@
-include ':app', ':module_a', ':module_b', ':swiftmodule'
+include ':app', ':module_a', ':module_b', ':swiftmodule', ':annotations', ':processor'
